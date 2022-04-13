@@ -11,6 +11,7 @@ public enum EmBusinessError implements CommonError {
 
     //20000开头表示用户信息相关错误
     USER_NOT_EXIST(20001, "用户不存在"),
+    USER_LOGIN_FAIL(20002, "用户手机号或密码错误")
     ;
 
     private int errCode;
@@ -34,6 +35,7 @@ public enum EmBusinessError implements CommonError {
 
     @Override
     public CommonError setErrorMsg(String msg) {
-        return null;
+        this.errMsg=msg;
+        return this;
     }
 }

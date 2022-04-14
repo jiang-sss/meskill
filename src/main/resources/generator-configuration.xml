@@ -32,13 +32,17 @@
 
 
         <!-- List of tables to inspect -->
-        <table tableName="user_info" domainObjectName="UserDO" enableCountByExample="false"
-        enableDeleteByExample="false" enableUpdateByExample="false" enableSelectByExample="false"/>
-        <table tableName="user_password" domainObjectName="UserPasswordDO" enableCountByExample="false"
-               enableDeleteByExample="false" enableUpdateByExample="false" enableSelectByExample="false"/>
-        <table tableName="item" domainObjectName="ItemDO" enableCountByExample="false"
-               enableDeleteByExample="false" enableUpdateByExample="false" enableSelectByExample="false"/>
-        <table tableName="item_stock" domainObjectName="ItemStockDO" enableCountByExample="false"
+<!--        <table tableName="user_info" domainObjectName="UserDO" enableCountByExample="false"-->
+<!--        enableDeleteByExample="false" enableUpdateByExample="false" enableSelectByExample="false"/>-->
+<!--        <table tableName="user_password" domainObjectName="UserPasswordDO" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableUpdateByExample="false" enableSelectByExample="false"/>-->
+<!--        <table tableName="item" domainObjectName="ItemDO" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableUpdateByExample="false" enableSelectByExample="false"/>-->
+<!--        <table tableName="item_stock" domainObjectName="ItemStockDO" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableUpdateByExample="false" enableSelectByExample="false"/>-->
+<!--        <table tableName="order_info" domainObjectName="OrderDO" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableUpdateByExample="false" enableSelectByExample="false"/>-->
+        <table tableName="sequence_info" domainObjectName="SequenceDO" enableCountByExample="false"
                enableDeleteByExample="false" enableUpdateByExample="false" enableSelectByExample="false"/>
     </context>
 </generatorConfiguration>

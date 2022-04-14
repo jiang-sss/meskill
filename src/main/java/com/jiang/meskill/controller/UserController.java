@@ -6,6 +6,7 @@ import com.jiang.meskill.dao.UserDOMapper;
 import com.jiang.meskill.error.BusinessException;
 import com.jiang.meskill.error.EmBusinessError;
 import com.jiang.meskill.response.CommonReturnType;
+import com.jiang.meskill.service.Impl.UserServiceImpl;
 import com.jiang.meskill.service.UserService;
 import com.jiang.meskill.service.model.UserModel;
 import com.sun.org.glassfish.gmbal.ParameterNames;
@@ -38,7 +39,7 @@ import static javax.swing.text.html.CSS.getAttribute;
 @RequestMapping("/user")
 public class UserController extends BaseController{
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @RequestMapping("/login")
     public CommonReturnType login(@RequestParam(name = "telphone")String telphone,

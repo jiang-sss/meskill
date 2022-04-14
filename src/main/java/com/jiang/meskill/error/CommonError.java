@@ -7,7 +7,7 @@ import com.jiang.meskill.response.CommonReturnType;
  * @create 2022-04-12-17:32
  */
 public interface CommonError {
-    public int getErrorCode();
-    public String getErrorMsg();
-    public CommonError setErrorMsg(String msg);
+    int getErrorCode();
+    String getErrorMsg();
+    CommonError setErrorMsg(String msg);
 }

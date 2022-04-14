@@ -53,4 +53,5 @@ public interface ItemDOMapper {
      * @mbg.generated Wed Apr 13 20:59:50 CST 2022
      */
     int updateByPrimaryKey(ItemDO row);
+    void increaseSales(Integer id, Integer amount);
 }

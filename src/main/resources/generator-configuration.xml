@@ -36,5 +36,9 @@
         enableDeleteByExample="false" enableUpdateByExample="false" enableSelectByExample="false"/>
         <table tableName="user_password" domainObjectName="UserPasswordDO" enableCountByExample="false"
                enableDeleteByExample="false" enableUpdateByExample="false" enableSelectByExample="false"/>
+        <table tableName="item" domainObjectName="ItemDO" enableCountByExample="false"
+               enableDeleteByExample="false" enableUpdateByExample="false" enableSelectByExample="false"/>
+        <table tableName="item_stock" domainObjectName="ItemStockDO" enableCountByExample="false"
+               enableDeleteByExample="false" enableUpdateByExample="false" enableSelectByExample="false"/>
     </context>
 </generatorConfiguration>

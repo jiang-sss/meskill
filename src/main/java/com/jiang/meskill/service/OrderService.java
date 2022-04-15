@@ -9,5 +9,5 @@ import com.jiang.meskill.error.BusinessException;
 import com.jiang.meskill.service.model.OrderModel;
 
 public interface OrderService {
-    OrderModel createOrder(Integer userId, Integer itemId, Integer amount) throws BusinessException;
+    OrderModel createOrder(Integer userId, Integer itemId,Integer promoId, Integer amount) throws BusinessException;
 }

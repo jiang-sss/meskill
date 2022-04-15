@@ -20,7 +20,10 @@ public class OrderModel {
     //订单商品
     private Integer itemId;
 
-    //冗余字段
+    //若非空则以秒杀商品下单
+    private Integer promoId;
+
+    //冗余字段,若promoId非空，则表示秒杀商品价格
     private BigDecimal itemPrice;
 
     //购买数量

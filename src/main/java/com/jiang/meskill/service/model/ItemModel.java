@@ -15,6 +15,9 @@ import java.math.BigDecimal;
 public class ItemModel {
     private Integer id;
 
+    //如果promoModel不为空，则表示其拥有还未结束的秒杀活动
+    private PromoModel promoModel;
+
     @NotBlank(message = "商品名称不能为空")
     private String title;
     @NotNull(message = "商品价格不能为空")

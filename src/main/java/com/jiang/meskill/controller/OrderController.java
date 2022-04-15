@@ -34,6 +34,7 @@ public class OrderController extends BaseController{
     @RequestMapping("/createorder")
     public CommonReturnType createOrder(@RequestParam(name="itemId") Integer itemId,
                                         @RequestParam(name="amount") Integer amount,
+                                        @RequestParam(name="promoId", required = false) Integer promoId,
                                         HttpServletRequest request) throws BusinessException {
         HttpSession session = request.getSession();
         Boolean is_login = (Boolean) session.getAttribute("IS_LOGIN");
@@ -41,7 +42,7 @@ public class OrderController extends BaseController{
             throw new BusinessException(EmBusinessError.USER_NOT_LOGIN);
         }
         UserModel userModel = (UserModel)session.getAttribute("LOGIN_USER");
-        orderService.createOrder(userModel.getId(), itemId, amount);
+        orderService.createOrder(userModel.getId(), itemId, promoId,amount);
         return CommonReturnType.create(null);
     }
 }

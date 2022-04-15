@@ -7,7 +7,9 @@ import com.jiang.meskill.dataobject.ItemStockDO;
 import com.jiang.meskill.error.BusinessException;
 import com.jiang.meskill.error.EmBusinessError;
 import com.jiang.meskill.service.ItemService;
+import com.jiang.meskill.service.PromoService;
 import com.jiang.meskill.service.model.ItemModel;
+import com.jiang.meskill.service.model.PromoModel;
 import com.jiang.meskill.validator.ValidationResult;
 import com.jiang.meskill.validator.ValidatorImpl;
 import org.springframework.beans.BeanUtils;
@@ -33,6 +35,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private ItemStockDOMapper itemStockDOMapper;
+
+    @Autowired
+    private PromoService promoService;
 
     @Transactional
     @Override
@@ -96,7 +101,13 @@ public class ItemServiceImpl implements ItemService {
             return null;
         }
         ItemStockDO itemStockDO = itemStockDOMapper.selectByItemId(itemDO.getId());
-        return convertModelFromDO(itemDO, itemStockDO);
+        ItemModel itemModel = convertModelFromDO(itemDO, itemStockDO);
+
+        PromoModel promoModel = promoService.getPromoByItemId(itemModel.getId());
+        if(promoModel!=null&&promoModel.getStatus()!=3){
+            itemModel.setPromoModel(promoModel);
+        }
+        return itemModel;
     }
 
     @Transactional

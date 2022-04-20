@@ -5,6 +5,7 @@ import com.jiang.meskill.controller.VO.UserVO;
 import com.jiang.meskill.dao.UserDOMapper;
 import com.jiang.meskill.error.BusinessException;
 import com.jiang.meskill.error.EmBusinessError;
+import com.jiang.meskill.pojoconverter.UserModelToUserVO;
 import com.jiang.meskill.response.CommonReturnType;
 import com.jiang.meskill.service.Impl.UserServiceImpl;
 import com.jiang.meskill.service.UserService;
@@ -119,15 +120,7 @@ public class UserController extends BaseController{
         if(user==null){
             throw new BusinessException(EmBusinessError.USER_NOT_EXIST);
         }
-        return CommonReturnType.create(convertFromModel(user));
+        return CommonReturnType.create(UserModelToUserVO.INSTANCE.toUserVO(user));
     }
 
-    public UserVO convertFromModel(UserModel userModel){
-        if(userModel==null){
-            return null;
-        }
-        UserVO userVO = new UserVO();
-        BeanUtils.copyProperties(userModel, userVO);
-        return userVO;
-    }
 }

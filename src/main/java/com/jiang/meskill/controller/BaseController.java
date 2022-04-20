@@ -17,7 +17,7 @@ import java.util.Map;
  * @create 2022-04-12-18:36
  */
 public class BaseController {
-//    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public Object handlerException(HttpServletRequest request, Exception exception){

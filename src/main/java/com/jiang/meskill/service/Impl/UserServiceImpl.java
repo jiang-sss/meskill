@@ -14,7 +14,6 @@ import com.jiang.meskill.service.model.UserModel;
 import com.jiang.meskill.validator.ValidationResult;
 import com.jiang.meskill.validator.ValidatorImpl;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -66,7 +65,7 @@ public class UserServiceImpl implements UserService {
         userModel.setId(userDO.getId());
 
         UserPasswordDO userPasswordDO = UserModelToPasswordDO.INSTANCE.toPasswordDO(userModel);
-        int i = userPasswordDOMapper.insertSelective(userPasswordDO);
+        userPasswordDOMapper.insertSelective(userPasswordDO);
         return;
     }
 

@@ -4,11 +4,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
 /**
  * @author jiangs
  * @create 2022-04-13-11:36
@@ -18,7 +13,7 @@ import java.io.IOException;
 public class MetaCorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        //设置允许跨域的路径
+//        设置允许跨域的路径
         registry.addMapping("/**")
                 //设置允许跨域请求的域名
                 .allowedOriginPatterns("*")

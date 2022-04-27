@@ -1,36 +1,23 @@
 package com.jiang.meskill.controller;
 
 import com.alibaba.druid.util.StringUtils;
-import com.jiang.meskill.controller.VO.UserVO;
-import com.jiang.meskill.dao.UserDOMapper;
 import com.jiang.meskill.error.BusinessException;
 import com.jiang.meskill.error.EmBusinessError;
 import com.jiang.meskill.pojoconverter.UserModelToUserVO;
 import com.jiang.meskill.response.CommonReturnType;
 import com.jiang.meskill.service.Impl.UserServiceImpl;
-import com.jiang.meskill.service.UserService;
 import com.jiang.meskill.service.model.UserModel;
-import com.sun.org.glassfish.gmbal.ParameterNames;
-import org.apache.tomcat.util.security.MD5Encoder;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
+import org.springframework.util.DigestUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.swing.plaf.nimbus.NimbusStyle;
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
-
-import static javax.swing.text.html.CSS.getAttribute;
 
 /**
  * @author jiangs
@@ -50,7 +37,7 @@ public class UserController extends BaseController{
                 || org.apache.commons.lang3.StringUtils.isEmpty(password)){
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "手机号或密码不能为空");
         }
-        UserModel userModel = userService.validateLogin(telphone, this.EncodeByMd5(password));
+        UserModel userModel = userService.validateLogin(telphone, DigestUtils.md5DigestAsHex(password.getBytes(StandardCharsets.UTF_8)));
 
         //将用户登录凭证加入到登录成功的session中
         request.getSession().setAttribute("IS_LOGIN", true);
@@ -82,17 +69,17 @@ public class UserController extends BaseController{
         userModel.setAge(age);
         userModel.setTelphone(telphone);
         userModel.setRegisterMode("byPhone");
-        userModel.setEncrptPassword(EncodeByMd5(password));
+        userModel.setEncrptPassword(DigestUtils.md5DigestAsHex(password.getBytes(StandardCharsets.UTF_8)));
         userService.register(userModel);
         return CommonReturnType.create(null);
     }
 
-    public String EncodeByMd5(String str) throws NoSuchAlgorithmException {
-        MessageDigest md5 = MessageDigest.getInstance("MD5");
-        BASE64Encoder base64Encoder = new BASE64Encoder();
-        String encode = base64Encoder.encode(md5.digest(str.getBytes(StandardCharsets.UTF_8)));
-        return encode;
-    }
+//    public String EncodeByMd5(String str) throws NoSuchAlgorithmException {
+//        MessageDigest md5 = MessageDigest.getInstance("MD5");
+//        BASE64Encoder base64Encoder = new BASE64Encoder();
+//        String encode = base64Encoder.encode(md5.digest(str.getBytes(StandardCharsets.UTF_8)));
+//        return encode;
+//    }
 
 
     @RequestMapping("/getotp")

@@ -33,6 +33,7 @@ public class ValidatorImpl implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
+        //validator采用工厂模式
         this.validator = Validation.buildDefaultValidatorFactory().getValidator();
     }
 }

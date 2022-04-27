@@ -4,6 +4,7 @@ import com.jiang.meskill.error.BusinessException;
 import com.jiang.meskill.error.EmBusinessError;
 import com.jiang.meskill.response.CommonReturnType;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -16,6 +17,7 @@ import java.util.Map;
  * @author jiangs
  * @create 2022-04-12-18:36
  */
+@ControllerAdvice
 public class BaseController {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.OK)

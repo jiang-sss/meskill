@@ -14,10 +14,12 @@ import com.jiang.meskill.validator.ValidationResult;
 import com.jiang.meskill.validator.ValidatorImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -38,6 +40,10 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private PromoService promoService;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
+
 
     @Transactional
     @Override
@@ -106,6 +112,17 @@ public class ItemServiceImpl implements ItemService {
         PromoModel promoModel = promoService.getPromoByItemId(itemModel.getId());
         if(promoModel!=null&&promoModel.getStatus()!=3){
             itemModel.setPromoModel(promoModel);
+        }
+        return itemModel;
+    }
+
+    @Override
+    public ItemModel getByItemIdByCache(Integer id) {
+        ItemModel itemModel = (ItemModel) redisTemplate.opsForValue().get("item_validate_"+id);
+        if(itemModel==null){
+            itemModel = getByItemId(id);
+            redisTemplate.opsForValue().set("item_validate_"+id, itemModel);
+            redisTemplate.expire("item_validate_"+id, 10, TimeUnit.MINUTES);
         }
         return itemModel;
     }

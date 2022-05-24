@@ -3,15 +3,15 @@ package com.jiang.meskill.service.model;
 import lombok.Data;
 import org.joda.time.DateTime;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * @author jiangs
  * @create 2022-04-14-15:27
  */
 @Data
-public class PromoModel {
+public class PromoModel implements Serializable {
     private Integer id;
 
     //为1表示还未开始，为2表示进行中，3表示已结束

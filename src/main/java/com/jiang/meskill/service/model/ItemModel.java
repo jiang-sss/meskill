@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -12,7 +13,7 @@ import java.math.BigDecimal;
  * @create 2022-04-13-20:47
  */
 @Data
-public class ItemModel {
+public class ItemModel implements Serializable {
     private Integer id;
 
     //如果promoModel不为空，则表示其拥有还未结束的秒杀活动

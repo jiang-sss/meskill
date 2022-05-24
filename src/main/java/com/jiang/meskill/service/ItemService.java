@@ -19,6 +19,9 @@ public interface ItemService {
     //商品详情浏览
     ItemModel getByItemId(Integer id);
 
+    //item及prommo model缓存模型
+    ItemModel getByItemIdByCache(Integer id);
+
     //库存扣减
     boolean decreaseStock(Integer itemId, Integer amount);
 

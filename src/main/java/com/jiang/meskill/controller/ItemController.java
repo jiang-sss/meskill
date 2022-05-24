@@ -3,19 +3,20 @@ package com.jiang.meskill.controller;
 import com.jiang.meskill.controller.VO.ItemVO;
 import com.jiang.meskill.error.BusinessException;
 import com.jiang.meskill.response.CommonReturnType;
+import com.jiang.meskill.service.CacheService;
 import com.jiang.meskill.service.ItemService;
 import com.jiang.meskill.service.model.ItemModel;
-import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -28,6 +29,12 @@ public class ItemController extends BaseController {
 
     @Autowired
     private ItemService itemService;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
+
+    @Autowired
+    private CacheService cacheService;
 
     @RequestMapping("/create")
     public CommonReturnType createItem(@RequestParam(name = "title") String title,
@@ -48,7 +55,18 @@ public class ItemController extends BaseController {
 
     @RequestMapping("/get")
     public CommonReturnType getItem(@RequestParam(name = "id")Integer id){
-        ItemModel itemModel = itemService.getByItemId(id);
+        ItemModel itemModel = null;
+        //先取本地缓存
+        itemModel = (ItemModel) cacheService.getCommonCache("item_"+id);
+        if(itemModel==null){
+            itemModel = (ItemModel)redisTemplate.opsForValue().get("item_" + id);
+            if(itemModel==null){
+                itemModel = itemService.getByItemId(id);
+                redisTemplate.opsForValue().set("item_"+id, itemModel);
+                redisTemplate.expire("item_"+id, 10, TimeUnit.MINUTES);
+            }
+            cacheService.setCommonCache("item_"+id, itemModel);
+        }
         ItemVO itemVO = convertFromItemModel(itemModel);
         return CommonReturnType.create(itemVO);
     }

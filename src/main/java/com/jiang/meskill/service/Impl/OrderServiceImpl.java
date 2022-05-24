@@ -1,6 +1,5 @@
 package com.jiang.meskill.service.Impl;
 
-import com.jiang.meskill.dao.ItemDOMapper;
 import com.jiang.meskill.dao.OrderDOMapper;
 import com.jiang.meskill.dao.SequenceDOMapper;
 import com.jiang.meskill.dataobject.OrderDO;
@@ -20,11 +19,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.plaf.basic.BasicTreeUI;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 /**
  * @author jiangs
@@ -52,11 +49,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderModel createOrder(Integer userId, Integer itemId,Integer promoId, Integer amount) throws BusinessException {
         //校验
-        ItemModel itemModel = itemService.getByItemId(itemId);
+//        ItemModel itemModel = itemService.getByItemId(itemId);
+        ItemModel itemModel = itemService.getByItemIdByCache(itemId);
         if(itemModel==null){
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "商品信息不存在");
         }
-        UserModel userModel = userService.getUserById(userId);
+        UserModel userModel = userService.getUserByIdInCache(userId);
         if(userModel==null){
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "用户信息不存在");
         }
